@@ -568,12 +568,8 @@ function downloadTest(content, filename, contentType = "text/plain") {
 
     const a = document.createElement("a");
     const url = window.URL.createObjectURL(blob);
-    a.href = url;
-    document.body.appendChild(a);
-    a.click();
-    window.URL.revokeObjectURL(url);
-    document.body.removeChild(a);
-    window.open("https://studio.penguinmod.com/editor.html?extension=" + url);
+    a.href = "https://studio.penguinmod.com/editor.html?extension=" + url;
+    setTimeout(window.URL.revokeObjectURL(url), 30000);
 }
 
 function saveProject(saveName) {
