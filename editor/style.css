@@ -1,7 +1,7 @@
 html, body {
     margin: 0;
     padding: 0;
-    background: #00c3ff;
+    background: #24c404;
 }
 
 * {
@@ -22,9 +22,9 @@ html, body {
 
 button {
     color: white;
-    background: #00c3ff;
+    background: #24c404;
     border-radius: 5px;
-    border-color: #00c3ff;
+    border-color: #24c404;
     border: none;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -33,7 +33,7 @@ button {
 }
 
 button:hover {
-    background: #62D8FC;
+    background: #60fc3d;
 }
 
 label {
