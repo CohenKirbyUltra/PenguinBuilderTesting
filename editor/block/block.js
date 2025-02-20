@@ -41,17 +41,20 @@ Blockly.Blocks['create_block'] = {
   },
 };
 
+const branchCountTemp = block.getFieldValue()
+
+function getBranches(type, count) {
+    if (type != "CONDITIONAL" && type != "LOOP") {
+        return(1);
+    } else {
+        return(count);
+    }
+}
+
 javascript.javascriptGenerator.forBlock['create_block'] = function(block) {
   const id = `${Extension_id}_Block_${block.getFieldValue('ID')}`;
   const text = block.getFieldValue('Text');
-  const branchCount = function() {
-    if (block.getFieldValue('type') != "CONDITIONAL" || block.getFieldValue('type') != "LOOP") {
-        return(1);
-    } else {
-        return(block.getFieldValue('BranchCount'));
-    }
-  }
-  
+  const branchCount = getBranches(block.getFieldValue('type'), block.getFieldValue('BreachCount'));
   const show = block.getFieldValue('Show') == 'TRUE';
   const type = block.getFieldValue('type');
   const inputs = Blockly.JavaScript.statementToCode(block, 'Inputs');
