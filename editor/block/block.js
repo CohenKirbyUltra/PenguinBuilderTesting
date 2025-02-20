@@ -41,8 +41,6 @@ Blockly.Blocks['create_block'] = {
   },
 };
 
-const branchCountTemp = block.getFieldValue()
-
 function getBranches(type, count) {
     if (type != "CONDITIONAL" && type != "LOOP") {
         return(1);
