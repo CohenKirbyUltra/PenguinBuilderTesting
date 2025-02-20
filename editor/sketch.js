@@ -569,7 +569,6 @@ function downloadTest(content, filename, contentType = "text/plain") {
     const a = document.createElement("a");
     const url = window.URL.createObjectURL(blob);
     a.href = url;
-    a.download = filename;
     document.body.appendChild(a);
     a.click();
     window.URL.revokeObjectURL(url);
