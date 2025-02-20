@@ -1,7 +1,11 @@
-const version = "3.6";
+const version = "4.0";
 
 const whats_new = `
-added more blocks, and colors are back
+This is a fanmade upgrade of penguinbuilder. This isn't mine.
+
+Did my own organization
+there's now conditional and loop block types
+you can now control the branch count of a block
 `;
 
 $("html").on("keydown", (e) => {
@@ -195,6 +199,12 @@ const toolbox = {
         },
         {
             kind: "category",
+            name: "Functions",
+            colour: "#FF00E8",
+            custom: "PROCEDURE",
+        },
+        {
+            kind: "category",
             name: "Functions+",
             colour: "#FF00E8",
             contents: [
@@ -212,20 +222,15 @@ const toolbox = {
         },
         {
             kind: "category",
-            name: "alert",
-            colour: "#6400FF",
-            contents: [block("alert"), block("alert_confirm"), block("alert_prompt")],
+            name: "Variables+",
+            colour: "#2F00FF",
+            contents: [block("vars_set"), block("vars_get")],
         },
         {
             kind: "category",
-            name: "eval",
-            colour: "#00FFE4",
-            contents: [
-                block("eval"),
-                block("eval_return"),
-                block("raw"),
-                block("raw_ret"),
-            ],
+            name: "Variables",
+            colour: "#2F00FF",
+            custom: "VARIABLE",
         },
         {
             kind: "category",
@@ -244,21 +249,20 @@ const toolbox = {
         },
         {
             kind: "category",
-            name: "Variables+",
-            colour: "#2F00FF",
-            contents: [block("vars_set"), block("vars_get")],
+            name: "alert",
+            colour: "#6400FF",
+            contents: [block("alert"), block("alert_confirm"), block("alert_prompt")],
         },
         {
             kind: "category",
-            name: "Functions",
-            colour: "#FF00E8",
-            custom: "PROCEDURE",
-        },
-        {
-            kind: "category",
-            name: "Variables",
-            colour: "#2F00FF",
-            custom: "VARIABLE",
+            name: "eval",
+            colour: "#00FFE4",
+            contents: [
+                block("eval"),
+                block("eval_return"),
+                block("raw"),
+                block("raw_ret"),
+            ],
         },
     ],
 };
@@ -301,6 +305,13 @@ function addFromPrefix(Prefix, name, color, excludes = []) {
     });
 }
 
+addFromPrefix("controls_", "controls", "#FFCC00", [
+    "controls_ifelse",
+    "controls_if_if",
+    "controls_if_elseif",
+    "controls_if_else",
+]);
+
 addCategory("texts", "#00ff00", "string", [
     "text_create_join_container",
     "text_create_join_item",
@@ -318,13 +329,6 @@ toolbox.contents.at(-1).contents.push(block("math_convert_degrees"));
 addCategory("lists", "#ff0000", "arrays", [
     "lists_create_with_container",
     "lists_create_with_item",
-]);
-
-addFromPrefix("controls_", "controls", "#FFCC00", [
-    "controls_ifelse",
-    "controls_if_if",
-    "controls_if_elseif",
-    "controls_if_else",
 ]);
 
 let if_block;
