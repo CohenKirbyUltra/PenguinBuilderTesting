@@ -75,11 +75,11 @@ javascript.javascriptGenerator.forBlock['create_block'] = function(block) {
       break;
     case 'Conditional':
       blockType = 'CONDITIONAL';
-      branches = branchCount;
+      branches = block.getFieldValue('BreachCount');
       break;
     case 'Loop':
       blockType = 'LOOP';
-      branches = branchCount;
+      branches = block.getFieldValue('BreachCount');
       break;
     default:
       blockType = 'BUTTON';
@@ -87,6 +87,9 @@ javascript.javascriptGenerator.forBlock['create_block'] = function(block) {
       break;
   }
 
+  if (branches == null) {
+      branches == 0;
+  }
   const code = `
 blocks.push({
   opcode: "${id}",
