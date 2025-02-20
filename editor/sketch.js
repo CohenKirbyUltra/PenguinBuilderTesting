@@ -69,7 +69,7 @@ $("#version").text("v" + version);
 
 let Extension_id = "ExtensionID";
 let name = "ExtensionName";
-let color1 = "#0088ff";
+let color1 = "#00ff00";
 let forceUnsandboxed = false;
 
 function getTopBlocks(block) {
@@ -105,7 +105,7 @@ function getID() {
 
     color1 = $("#Color").value();
     if (color1 === "") {
-        color1 = "#0088ff";
+        color1 = "#00ff00";
     }
 
     forceUnsandboxed = $("#force-unsandboxed").checked();
