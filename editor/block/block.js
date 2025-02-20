@@ -48,9 +48,10 @@ javascript.javascriptGenerator.forBlock['create_block'] = function(block) {
     if (block.getFieldValue('type') != "CONDITIONAL" || block.getFieldValue('type') != "LOOP") {
         return(1);
     } else {
-        return(block.getFieldValue('BranchCount');
+        return(block.getFieldValue('BranchCount'));
     }
   }
+  
   const show = block.getFieldValue('Show') == 'TRUE';
   const type = block.getFieldValue('type');
   const inputs = Blockly.JavaScript.statementToCode(block, 'Inputs');
