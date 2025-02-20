@@ -10,7 +10,9 @@ Blockly.Blocks['create_block'] = {
       .appendField("Text")
       .appendField(new Blockly.FieldTextInput("Text"), "Text");
     this.appendDummyInput()
+        .appendField("Branch Count");
     this.appendValueInput('BranchCount')
+    this.appendDummyInput()
       .appendField("Show monitor")
       .appendField(new Blockly.FieldCheckbox("TRUE"), "Show");
     this.appendDummyInput()
@@ -42,7 +44,13 @@ Blockly.Blocks['create_block'] = {
 javascript.javascriptGenerator.forBlock['create_block'] = function(block) {
   const id = `${Extension_id}_Block_${block.getFieldValue('ID')}`;
   const text = block.getFieldValue('Text');
-  const branchCount = block.getFieldValue('BranchCount');
+  const branchCount = function() {
+    if (block.getFieldValue('type') != "CONDITIONAL" || block.getFieldValue('type') != "LOOP") {
+        return(1);
+    } else {
+        return(block.getFieldValue('BranchCount');
+    }
+  }
   const show = block.getFieldValue('Show') == 'TRUE';
   const type = block.getFieldValue('type');
   const inputs = Blockly.JavaScript.statementToCode(block, 'Inputs');
@@ -56,13 +64,13 @@ javascript.javascriptGenerator.forBlock['create_block'] = function(block) {
     case 'Reporter':
       blockType = 'REPORTER';
       break;
-    case 'boolean':
+    case 'Boolean':
       blockType = 'BOOLEAN';
       break;
-    case 'conditional':
+    case 'Conditional':
       blockType = 'CONDITIONAL';
       break;
-    case 'loop':
+    case 'Loop':
       blockType = 'LOOP';
       break;
   }
@@ -72,7 +80,7 @@ blocks.push({
   opcode: "${id}",
   blockType: Scratch.BlockType.${blockType},
   text: "${text}",
-  branchCount: ${branchCount} <= 0 ? 1 : ${branchCount},
+  branchCount: ${branchCount},
   arguments: {
     ${inputs}
   },
