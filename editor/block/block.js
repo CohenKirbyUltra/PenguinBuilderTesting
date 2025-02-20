@@ -73,6 +73,9 @@ javascript.javascriptGenerator.forBlock['create_block'] = function(block) {
     case 'Loop':
       blockType = 'LOOP';
       break;
+    default:
+      blockType = 'BUTTON';
+      break;
   }
 
   const code = `
