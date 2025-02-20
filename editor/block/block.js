@@ -74,7 +74,7 @@ blocks.push({
   opcode: "${id}",
   blockType: Scratch.BlockType.${blockType},
   text: "${text}",
-  branchCount: ${branchCount} <= 0 ? 1 : ${branchcount},
+  branchCount: ${branchCount} <= 0 ? 1 : ${branchCount},
   arguments: {
     ${inputs}
   },
