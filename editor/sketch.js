@@ -495,6 +495,57 @@ $("#Export").click(() => {
     }
 });
 
+$("#Play").click(() => {
+    end = "";
+    very_end = "";
+    menus = 0;
+    getID();
+    if (
+        Object.keys(Blockly.serialization.workspaces.save(workspace)).length !== 0
+    ) {
+        workspace.getAllVariables().forEach(v => v.name = Extension_id + "_" + v.name);
+        downloadTest(
+            `
+            // Made with PenguinBuilder ${version}
+            // use PenguinBuilder at "https://chickencuber.github.io/PenguinBuilder/"
+            (async function(Scratch) {
+                const blocks = [];
+                const vars = {};
+                const menus = {};
+
+                function wait(m) {
+                    return new Promise((r) => setTimeout(() => r(), m));
+                }
+
+                ${forceUnsandboxed ? `if (!Scratch.extensions.unsandboxed) {
+                    throw new Error('${name} must run unsandboxed');
+                }`: ""}
+
+                class Extension {
+                    getInfo() {
+                        return {
+                            "id": "${Extension_id}",
+                            "name": "${name}",
+                            "color1": "${color1}",
+                            "blocks": blocks,
+                            "menus": menus,
+                        }
+                    }
+                }
+                \n` +
+                    getCode() +
+                    `\n
+                ${end}
+                ${very_end}
+                Scratch.extensions.register(new Extension());
+            })(Scratch);
+            `,
+            Extension_id + ".js"
+        );
+        workspace.getAllVariables().forEach(v => v.name = v.name.replace(new RegExp("^" + Extension_id + "_", "g"), ""));
+    }
+});
+
 function getCode() {
     return Blockly.JavaScript.workspaceToCode(workspace);
 }
@@ -510,6 +561,20 @@ function download(content, filename, contentType = "text/plain") {
     a.click();
     window.URL.revokeObjectURL(url);
     document.body.removeChild(a);
+}
+
+function downloadTest(content, filename, contentType = "text/plain") {
+    const blob = new Blob([content], { type: contentType });
+
+    const a = document.createElement("a");
+    const url = window.URL.createObjectURL(blob);
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+    window.open("https://studio.penguinmod.com/editor.html?extension=" + url);
 }
 
 function saveProject(saveName) {
