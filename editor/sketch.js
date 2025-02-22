@@ -87,7 +87,6 @@ let name = "ExtensionName";
 let documentation = "https://cohenkirbyultra.github.io/PenguinBuilderTesting/Documentation/";
 let color1 = "#00ff00";
 let forceUnsandboxed = false;
-let 
 
 function getTopBlocks(block) {
     if (block.parentBlock_ === null) {
