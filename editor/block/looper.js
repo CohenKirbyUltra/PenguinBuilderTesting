@@ -11,5 +11,8 @@ Blockly.Blocks['stack_timer_finished'] = {
 };
 
 javascript.javascriptGenerator.forBlock['stack_timer_finished'] = function(block) {
-  return util.stackTimerFinished();
+
+  const code = "util.stackTimerFinished();"
+  
+  return code;
 };
