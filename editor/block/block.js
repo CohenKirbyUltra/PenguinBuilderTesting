@@ -43,8 +43,8 @@ Blockly.Blocks['create_block'] = {
 
 javascript.javascriptGenerator.forBlock['create_block'] = function(block) {
   const id = `${Extension_id}_Block_${block.getFieldValue('ID')}`;
-  const text = block.getFieldValue('Text');
-  const branchCount = block.getFieldValue('BreachCount');
+  const name = block.getFieldValue('Name');
+  var branchCount = block.getFieldValue('BreachCount');
   const show = block.getFieldValue('Show') == 'TRUE';
   const type = block.getFieldValue('type');
   const inputs = Blockly.JavaScript.statementToCode(block, 'Inputs');
@@ -81,10 +81,10 @@ javascript.javascriptGenerator.forBlock['create_block'] = function(block) {
       branches = branchCount;
       break;
     case 'CONDITIONAL':
-      branches = branchCount;
+      branches = 1;
       break;
     case 'LOOP':
-      branches = branchCount;
+      branches = 1;
       break;
     default:
       branches = -1;
@@ -94,7 +94,7 @@ javascript.javascriptGenerator.forBlock['create_block'] = function(block) {
 blocks.push({
   opcode: "${id}",
   blockType: Scratch.BlockType.${blockType},
-  text: "${text}",
+  text: "${name}",
   branchCount: ${branches},
   arguments: {
     ${inputs}
