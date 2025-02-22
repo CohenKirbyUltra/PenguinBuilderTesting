@@ -7,11 +7,11 @@ Blockly.Blocks['create_block'] = {
       .appendField("ID")
       .appendField(new Blockly.FieldTextInput("ID"), "ID");
     this.appendDummyInput()
-      .appendField("Text")
-      .appendField(new Blockly.FieldTextInput("Text"), "Text");
+      .appendField("Name")
+      .appendField(new Blockly.FieldTextInput("Name"), "Name");
     this.appendDummyInput()
       .appendField("Branch Count")
-      .appendField(new Blockly.FieldTextInput("BranchCount"), "1");
+      .appendField(new Blockly.FieldTextInput("1"), "BranchCount");
     this.appendDummyInput()
       .appendField("Show monitor")
       .appendField(new Blockly.FieldCheckbox("TRUE"), "Show");
