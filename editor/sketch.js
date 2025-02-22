@@ -17,7 +17,7 @@ function getChanges() {
 }
 
 const whats_new = `
-This is a fanmade upgrade of PenguinBuilder. This isn't mine.
+This is a fanmade upgrade of PenguinBuilderXL. This isn't mine.
 I'll link the original in the top left
 
 
@@ -412,7 +412,7 @@ $("#darkmode").click(() => {
     const self = $("#darkmode");
     self.toggleClass("dark");
     $(".blocklyTreeSeparator").toggleClass("dark");
-    localStorage.setItem("PenguinBuilder", JSON.stringify({
+    localStorage.setItem("PenguinBuilderXL", JSON.stringify({
         shown_version: version,
         dark: self.hasClass("dark"),
     }));  
@@ -468,85 +468,80 @@ workspaceSearch.init();
 
 let very_end = "";
 
-
-var code1 = `
-            // Made with PenguinBuilder ${version}
-            // use PenguinBuilder at "https://chickencuber.github.io/PenguinBuilder/"
-            (async function(Scratch) {
-                const blocks = [];
-                const vars = {};
-                const menus = {};
-
-                function wait(m) {
-                    return new Promise((r) => setTimeout(() => r(), m));
-                }
-
-                ${forceUnsandboxed ? `if (!Scratch.extensions.unsandboxed) {
-                    throw new Error('${name} must run unsandboxed');
-                }`: ""}
-
-                class Extension {
-                    getInfo() {
-                        return {
-                            "id": "${Extension_id}",
-                            "name": "${name}",
-                            "docsURI": "${documentation}",
-                            "color1": "${color1}",
-                            "blocks": blocks,
-                            "menus": menus,
-                        }
-                    }
-                }
-                \n` +
-                    getCode() +
-                    `\n
-                ${end}
-                ${very_end}
-                Scratch.extensions.register(new Extension());
-            })(Scratch);
-            `;
-
-var code2 = `
-            // Made with PenguinBuilder ${version}
-            // use PenguinBuilder at "https://chickencuber.github.io/PenguinBuilder/"
-            (async function(Scratch) {
-                const blocks = [];
-                const vars = {};
-                const menus = {};
-
-                function wait(m) {
-                    return new Promise((r) => setTimeout(() => r(), m));
-                }
-
-                ${forceUnsandboxed ? `if (!Scratch.extensions.unsandboxed) {
-                    throw new Error('${name} must run unsandboxed');
-                }`: ""}
-
-                class Extension {
-                    getInfo() {
-                        return {
-                            "id": "${Extension_id}",
-                            "name": "${name}",
-                            "color1": "${color1}",
-                            "blocks": blocks,
-                            "menus": menus,
-                        }
-                    }
-                }
-                \n` +
-                    getCode() +
-                    `\n
-                ${end}
-                ${very_end}
-                Scratch.extensions.register(new Extension());
-            })(Scratch);
-            `;
-
-function getCurrentCode(docs) {
+function getCurrentCode(version, ext_id, name, docs, color1, forceUnsandboxed, end, veryend) {
     if (docs === "") {
-        return code2
+        return `
+            // Made with PenguinBuilderXL ${version}
+            // use PenguinBuilderXL at "https://chickencuber.github.io/PenguinBuilderXL/"
+            (async function(Scratch) {
+                const blocks = [];
+                const vars = {};
+                const menus = {};
+
+                function wait(m) {
+                    return new Promise((r) => setTimeout(() => r(), m));
+                }
+
+                ${forceUnsandboxed ? `if (!Scratch.extensions.unsandboxed) {
+                    throw new Error('${name} must run unsandboxed');
+                }`: ""}
+
+                class Extension {
+                    getInfo() {
+                        return {
+                            "id": "${ext_id}",
+                            "name": "${name}",
+                            "color1": "${color1}",
+                            "blocks": blocks,
+                            "menus": menus,
+                        }
+                    }
+                }
+                \n` +
+                    getCode() +
+                    `\n
+                ${end}
+                ${veryend}
+                Scratch.extensions.register(new Extension());
+            })(Scratch);
+            `
     } else {
-        return code1
+        return `
+            // Made with PenguinBuilderXL ${version}
+            // use PenguinBuilderXL at "https://chickencuber.github.io/PenguinBuilderXL/"
+            (async function(Scratch) {
+                const blocks = [];
+                const vars = {};
+                const menus = {};
+
+                function wait(m) {
+                    return new Promise((r) => setTimeout(() => r(), m));
+                }
+
+                ${forceUnsandboxed ? `if (!Scratch.extensions.unsandboxed) {
+                    throw new Error('${name} must run unsandboxed');
+                }`: ""}
+
+                class Extension {
+                    getInfo() {
+                        return {
+                            "id": "${ext_id}",
+                            "name": "${name}",
+                            "docsURI": "${docs}",
+                            "color1": "${color1}",
+                            "blocks": blocks,
+                            "menus": menus,
+                        }
+                    }
+                }
+                \n` +
+                    getCode() +
+                    `\n
+                ${end}
+                ${veryend}
+                Scratch.extensions.register(new Extension());
+            })(Scratch);
+            `
     }
 }
 
@@ -560,7 +555,7 @@ $("#Export").click(() => {
     ) {
         workspace.getAllVariables().forEach(v => v.name = Extension_id + "_" + v.name);
         download(
-            getCurrentCode(documentation),
+            getCurrentCode(version, Extension_id, name, documentation, color1, forceUnsandboxed, end, very_end),
             Extension_id + ".js"
         );
         workspace.getAllVariables().forEach(v => v.name = v.name.replace(new RegExp("^" + Extension_id + "_", "g"), ""));
@@ -577,7 +572,7 @@ $("#Play").click(() => {
     ) {
         workspace.getAllVariables().forEach(v => v.name = Extension_id + "_" + v.name);
         downloadTest(
-            getCurrentCode(documentation),
+            getCurrentCode(version, Extension_id, name, documentation, color1, forceUnsandboxed, end, very_end),
             Extension_id + ".js"
         );
         workspace.getAllVariables().forEach(v => v.name = v.name.replace(new RegExp("^" + Extension_id + "_", "g"), ""));
@@ -709,36 +704,43 @@ function checkFileExtension(file, allowedExtension) {
     return fileExtension === allowedExtension.substring(1);
 }
 
-if (localStorage.getItem("PenguinBuilder") === null) {
-    localStorage.setItem("PenguinBuilder", JSON.stringify({
+if (localStorage.getItem("PenguinBuilderXL") === null) {
+    localStorage.setItem("PenguinBuilderXL", JSON.stringify({
         shown_version: "0",
         dark: false,
     }))
 }
 
-if (JSON.parse(localStorage.getItem("PenguinBuilder")).shown_version !== version) {
+if (JSON.parse(localStorage.getItem("PenguinBuilderXL")).shown_version !== version) {
     const update = $("#whats-new").create();
     update.$(".update").text(whats_new);
     update.$(".close").click(() => update.remove());
     $.body().child(update);
     update.$(".whats-new-dialog").elt.showModal();
-    localStorage.setItem("PenguinBuilder", JSON.stringify({
+    localStorage.setItem("PenguinBuilderXL", JSON.stringify({
         shown_version: version,
-        dark: JSON.parse(localStorage.getItem("PenguinBuilder")).dark,
+        dark: JSON.parse(localStorage.getItem("PenguinBuilderXL")).dark,
     }))
 }
 
 $("#Code").click(() => {
+    end = "";
+    very_end = "";
+    menus = 0;
     getID();
-    workspace.getAllVariables().forEach(v => v.name = Extension_id + "_" + v.name);
-    viewCode(
-        getCurrentCode(documentation),    
-        Extension_id + ".js"
-    );
-    workspace.getAllVariables().forEach(v => v.name = v.name.replace(new RegExp("^" + Extension_id + "_", "g"), ""));
+    if (
+        Object.keys(Blockly.serialization.workspaces.save(workspace)).length !== 0
+    ) {
+        workspace.getAllVariables().forEach(v => v.name = Extension_id + "_" + v.name);
+        viewCode(
+            getCurrentCode(version, Extension_id, name, documentation, color1, forceUnsandboxed, end, very_end),
+            Extension_id + ".js"
+        );
+        workspace.getAllVariables().forEach(v => v.name = v.name.replace(new RegExp("^" + Extension_id + "_", "g"), ""));
+    }
 });
 
-if(JSON.parse(localStorage.getItem("PenguinBuilder")).dark) {
+if(JSON.parse(localStorage.getItem("PenguinBuilderXL")).dark) {
     $("#darkmode").click();
 }
 
