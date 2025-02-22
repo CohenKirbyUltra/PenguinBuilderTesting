@@ -10,8 +10,8 @@ Blockly.Blocks['create_block'] = {
       .appendField("Text")
       .appendField(new Blockly.FieldTextInput("Text"), "Text");
     this.appendDummyInput()
-        .appendField("Branch Count");
-    this.appendValueInput('BranchCount')
+      .appendField("Branch Count");
+      .appendField(new Blockly.FieldTextInput("BranchCount"), "1");
     this.appendDummyInput()
       .appendField("Show monitor")
       .appendField(new Blockly.FieldCheckbox("TRUE"), "Show");
