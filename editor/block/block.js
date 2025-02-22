@@ -41,12 +41,6 @@ Blockly.Blocks['create_block'] = {
   },
 };
 
-function getBranches(type, count) {
-  switch (type) {
-    case "":
-  }
-}
-
 javascript.javascriptGenerator.forBlock['create_block'] = function(block) {
   const id = `${Extension_id}_Block_${block.getFieldValue('ID')}`;
   const text = block.getFieldValue('Text');
@@ -82,14 +76,14 @@ javascript.javascriptGenerator.forBlock['create_block'] = function(block) {
   }
 
   // Branches
-  switch (type) {
-    case 'Block':
+  switch (blockType) {
+    case 'BLOCK':
       branches = branchCount;
       break;
-    case 'Conditional':
+    case 'CONDITIONAL':
       branches = branchCount;
       break;
-    case 'Loop':
+    case 'LOOP':
       branches = branchCount;
       break;
     default:
