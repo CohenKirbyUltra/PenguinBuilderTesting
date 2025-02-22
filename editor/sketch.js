@@ -562,7 +562,7 @@ $("#Export").click(() => {
         workspace.getAllVariables().forEach(v => v.name = Extension_id + "_" + v.name);
         download(
             getCurrentCode(documentation),
-            Extension_id + ".js";
+            Extension_id + ".js"
         );
         workspace.getAllVariables().forEach(v => v.name = v.name.replace(new RegExp("^" + Extension_id + "_", "g"), ""));
     }
