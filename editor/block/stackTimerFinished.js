@@ -10,8 +10,7 @@ Blockly.Blocks['stack_timer_finished'] = {
   },
 };
 
-javascript.javascriptGenerator.forBlock['stack_timer_finished'] = function(block) {
-  const code = "util.stackTimerFinished()"
-  
-  return code;
-};
+javascriptGenerator.forBlock['stack_timer_finished'] = function(block, generator) {
+  // Return code.
+  return ['util.stackTimerFinished()', Order.ATOMIC];
+}
