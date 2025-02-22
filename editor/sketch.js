@@ -16,12 +16,8 @@ function getChanges() {
     return changelog;
 }
 
-const whats_new = `
-This is a fanmade upgrade of PenguinBuilderXL. This isn't mine.
-I'll link the original in the top left
-
-
-` + getChanges();
+const whats_new = `This is a fanmade upgrade of PenguinBuilderXL. This isn't mine.
+I'll link the original in the top left`;
 
 $("html").on("keydown", (e) => {
     if(e.ctrlKey && e.key == "s") {
@@ -68,6 +64,21 @@ class Templates extends JSQuery.Plugin {
                         temp.props({ [k]: v });
                     }
                     temp.class(this.id()).html(this.html());
+                    
+                    const Main = $.create("div");
+                    Main.text(whats_new);
+                    temp.append(Main);
+
+                    const BR = $.create("br");
+                    temp.append(Main);                    
+
+                    // Add additional divs based on a list
+                    changes.forEach(item => {
+                        const newDiv = $.create("div");
+                        newDiv.text(item);  // Add the item text to the new div
+                        temp.append(newDiv);  // Append the new div to the temp div
+                    });
+
                     return temp;
                 } else {
                     throw new Error("element isn't a template");
