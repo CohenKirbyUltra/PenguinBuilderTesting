@@ -75,6 +75,8 @@ let documentation = "https://cohenkirbyultra.github.io/PenguinBuilderTesting/Doc
 let color1 = "#00ff00";
 let forceUnsandboxed = false;
 
+var hasDocumentation = true;
+
 function getTopBlocks(block) {
     if (block.parentBlock_ === null) {
         return block;
@@ -108,7 +110,10 @@ function getID() {
 
     documentation = $("#Documentation").value();
     if (documentation === "") {
-        documentation = "Doc (Optional)"
+        hasDocumentation = false;
+        documentation = ""
+    } else {
+        hasDocumentation = true;
     }
 
     color1 = $("#Color").value();
@@ -480,13 +485,23 @@ $("#Export").click(() => {
 
                 class Extension {
                     getInfo() {
-                        return {
-                            "id": "${Extension_id}",
-                            "name": "${name}",
-                            "docsURI": "${documentation}",
-                            "color1": "${color1}",
-                            "blocks": blocks,
-                            "menus": menus,
+                        if (${documentation} != "") {
+                            return {
+                                "id": "${Extension_id}",
+                                "name": "${name}",
+                                "docsURI": "${documentation}",
+                                "color1": "${color1}",
+                                "blocks": blocks,
+                                "menus": menus,
+                            }
+                        } else {
+                            return {
+                                "id": "${Extension_id}",
+                                "name": "${name}",
+                                "color1": "${color1}",
+                                "blocks": blocks,
+                                "menus": menus,
+                            }
                         }
                     }
                 }
@@ -532,13 +547,23 @@ $("#Play").click(() => {
 
                 class Extension {
                     getInfo() {
-                        return {
-                            "id": "${Extension_id}",
-                            "name": "${name}",
-                            "docsURI": "${documentation}",
-                            "color1": "${color1}",
-                            "blocks": blocks,
-                            "menus": menus,
+                        if (${documentation} != "") {
+                            return {
+                                "id": "${Extension_id}",
+                                "name": "${name}",
+                                "docsURI": "${documentation}",
+                                "color1": "${color1}",
+                                "blocks": blocks,
+                                "menus": menus,
+                            }
+                        } else {
+                            return {
+                                "id": "${Extension_id}",
+                                "name": "${name}",
+                                "color1": "${color1}",
+                                "blocks": blocks,
+                                "menus": menus,
+                            }
                         }
                     }
                 }
@@ -703,43 +728,53 @@ $("#Code").click(() => {
     getID();
     workspace.getAllVariables().forEach(v => v.name = Extension_id + "_" + v.name);
     viewCode(
-        `
-        // Made with PenguinBuilder ${version}
-        // use PenguinBuilder at "https://chickencuber.github.io/PenguinBuilder/"
-        (async function(Scratch) {
-            const blocks = [];
-            const vars = {};
-            const menus = {};
+            `
+            // Made with PenguinBuilder ${version}
+            // use PenguinBuilder at "https://chickencuber.github.io/PenguinBuilder/"
+            (async function(Scratch) {
+                const blocks = [];
+                const vars = {};
+                const menus = {};
 
-            function wait(m) {
-                return new Promise((r) => setTimeout(() => r(), m));
-            }
+                function wait(m) {
+                    return new Promise((r) => setTimeout(() => r(), m));
+                }
 
-            ${forceUnsandboxed ? `if (!Scratch.extensions.unsandboxed) {
-                throw new Error('${name} must run unsandboxed');
-            }`: ""}
+                ${forceUnsandboxed ? `if (!Scratch.extensions.unsandboxed) {
+                    throw new Error('${name} must run unsandboxed');
+                }`: ""}
 
-            class Extension {
-                getInfo() {
-                    return {
-                        "id": "${Extension_id}",
-                        "name": "${name}",
-                        "docsURI": "${documentation}",
-                        "color1": "${color1}",
-                        "blocks": blocks,
-                        "menus": menus,
+                class Extension {
+                    getInfo() {
+                        if (${documentation} != "") {
+                            return {
+                                "id": "${Extension_id}",
+                                "name": "${name}",
+                                "docsURI": "${documentation}",
+                                "color1": "${color1}",
+                                "blocks": blocks,
+                                "menus": menus,
+                            }
+                        } else {
+                            return {
+                                "id": "${Extension_id}",
+                                "name": "${name}",
+                                "color1": "${color1}",
+                                "blocks": blocks,
+                                "menus": menus,
+                            }
+                        }
                     }
                 }
-            }
-            \n` +
-                getCode() +
-                `\n
-            ${end}
-            ${very_end}
-            Scratch.extensions.register(new Extension());
-        })(Scratch);
-        `,
-        Extension_id + ".js"
+                \n` +
+                    getCode() +
+                    `\n
+                ${end}
+                ${very_end}
+                Scratch.extensions.register(new Extension());
+            })(Scratch);
+            `,
+            Extension_id + ".js"
     );
     workspace.getAllVariables().forEach(v => v.name = v.name.replace(new RegExp("^" + Extension_id + "_", "g"), ""));
 });
