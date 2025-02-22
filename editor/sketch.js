@@ -481,7 +481,7 @@ $("#Export").click(() => {
         Object.keys(Blockly.serialization.workspaces.save(workspace)).length !== 0
     ) {
         workspace.getAllVariables().forEach(v => v.name = Extension_id + "_" + v.name);
-    if (docs === "") {
+    if (documentation === "") {
         download( `
             // Made with PenguinBuilderXL ${version}
             // use PenguinBuilderXL at "https://chickencuber.github.io/PenguinBuilderXL/"
@@ -501,7 +501,7 @@ $("#Export").click(() => {
                 class Extension {
                     getInfo() {
                         return {
-                            "id": "${ext_id}",
+                            "id": "${Extension_id}",
                             "name": "${name}",
                             "color1": "${color1}",
                             "blocks": blocks,
@@ -513,7 +513,7 @@ $("#Export").click(() => {
                     getCode() +
                     `\n
                 ${end}
-                ${veryend}
+                ${very_end}
                 Scratch.extensions.register(new Extension());
             })(Scratch);
             `,
@@ -539,9 +539,9 @@ $("#Export").click(() => {
                 class Extension {
                     getInfo() {
                         return {
-                            "id": "${ext_id}",
+                            "id": "${Extension_id}",
                             "name": "${name}",
-                            "docsURI": "${docs}",
+                            "docsURI": "${documentation}",
                             "color1": "${color1}",
                             "blocks": blocks,
                             "menus": menus,
@@ -552,7 +552,7 @@ $("#Export").click(() => {
                     getCode() +
                     `\n
                 ${end}
-                ${veryend}
+                ${very_end}
                 Scratch.extensions.register(new Extension());
             })(Scratch);
             `,
@@ -572,7 +572,7 @@ $("#Play").click(() => {
         Object.keys(Blockly.serialization.workspaces.save(workspace)).length !== 0
     ) {
         workspace.getAllVariables().forEach(v => v.name = Extension_id + "_" + v.name);
-    if (docs === "") {
+    if (documentation === "") {
         downloadTest( `
             // Made with PenguinBuilderXL ${version}
             // use PenguinBuilderXL at "https://chickencuber.github.io/PenguinBuilderXL/"
@@ -592,7 +592,7 @@ $("#Play").click(() => {
                 class Extension {
                     getInfo() {
                         return {
-                            "id": "${ext_id}",
+                            "id": "${Extension_id}",
                             "name": "${name}",
                             "color1": "${color1}",
                             "blocks": blocks,
@@ -604,7 +604,7 @@ $("#Play").click(() => {
                     getCode() +
                     `\n
                 ${end}
-                ${veryend}
+                ${very_end}
                 Scratch.extensions.register(new Extension());
             })(Scratch);
             `,
@@ -630,9 +630,9 @@ $("#Play").click(() => {
                 class Extension {
                     getInfo() {
                         return {
-                            "id": "${ext_id}",
+                            "id": "${Extension_id}",
                             "name": "${name}",
-                            "docsURI": "${docs}",
+                            "docsURI": "${documentation}",
                             "color1": "${color1}",
                             "blocks": blocks,
                             "menus": menus,
@@ -643,7 +643,7 @@ $("#Play").click(() => {
                     getCode() +
                     `\n
                 ${end}
-                ${veryend}
+                ${very_end}
                 Scratch.extensions.register(new Extension());
             })(Scratch);
             `,
@@ -803,7 +803,7 @@ $("#Code").click(() => {
         Object.keys(Blockly.serialization.workspaces.save(workspace)).length !== 0
     ) {
         workspace.getAllVariables().forEach(v => v.name = Extension_id + "_" + v.name);
-    if (docs === "") {
+    if (documentation === "") {
         viewCode( `
             // Made with PenguinBuilderXL ${version}
             // use PenguinBuilderXL at "https://chickencuber.github.io/PenguinBuilderXL/"
@@ -823,7 +823,7 @@ $("#Code").click(() => {
                 class Extension {
                     getInfo() {
                         return {
-                            "id": "${ext_id}",
+                            "id": "${Extension_id}",
                             "name": "${name}",
                             "color1": "${color1}",
                             "blocks": blocks,
@@ -835,7 +835,7 @@ $("#Code").click(() => {
                     getCode() +
                     `\n
                 ${end}
-                ${veryend}
+                ${very_end}
                 Scratch.extensions.register(new Extension());
             })(Scratch);
             `,
@@ -861,9 +861,9 @@ $("#Code").click(() => {
                 class Extension {
                     getInfo() {
                         return {
-                            "id": "${ext_id}",
+                            "id": "${Extension_id}",
                             "name": "${name}",
-                            "docsURI": "${docs}",
+                            "docsURI": "${documentation}",
                             "color1": "${color1}",
                             "blocks": blocks,
                             "menus": menus,
@@ -874,7 +874,7 @@ $("#Code").click(() => {
                     getCode() +
                     `\n
                 ${end}
-                ${veryend}
+                ${very_end}
                 Scratch.extensions.register(new Extension());
             })(Scratch);
             `,
