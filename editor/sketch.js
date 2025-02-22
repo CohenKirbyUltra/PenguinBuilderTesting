@@ -192,8 +192,6 @@ const toolbox = {
                 block("create_hat"),
                 block("call_hat"),
                 block("call_hat_with_args"),
-                block("stack_timer_finished"),
-                block("start_branch"),
             ],
         },
         {
