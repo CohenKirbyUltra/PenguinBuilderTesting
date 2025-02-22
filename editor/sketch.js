@@ -1,14 +1,10 @@
 const version = "4.1";
 
 var changes = [
-    'Did some reorganization, 
-    ',
-    'New Conditional and Loop block types,
-    ',
-    '* You can now control the branch count of a block
-    ',
-    '* Visualize Code
-    '
+    'Did some reorganization',
+    'New Conditional and Loop block types',
+    '* You can now control the branch count of a block',
+    '* Visualize Code'
 ];
 
 // My attempt at automating the changelog order
