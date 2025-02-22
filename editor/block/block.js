@@ -42,11 +42,9 @@ Blockly.Blocks['create_block'] = {
 };
 
 function getBranches(type, count) {
-    if (type != "CONDITIONAL" && type != "LOOP") {
-        return(1);
-    } else {
-        return(count);
-    }
+  switch (type) {
+    case "":
+  }
 }
 
 javascript.javascriptGenerator.forBlock['create_block'] = function(block) {
@@ -59,36 +57,44 @@ javascript.javascriptGenerator.forBlock['create_block'] = function(block) {
   const func = Blockly.JavaScript.statementToCode(block, 'Function');
 
   var blockType = '';
-  var branches = null;
+  var branches = '';
+
+  // Types
   switch (type) {
     case 'Block':
       blockType = 'COMMAND';
-      branches = 1;
       break;
     case 'Reporter':
       blockType = 'REPORTER';
-      branches = 1;
       break;
     case 'Boolean':
       blockType = 'BOOLEAN';
-      branches = 1;
       break;
     case 'Conditional':
       blockType = 'CONDITIONAL';
-      branches = block.getFieldValue('BreachCount');
       break;
     case 'Loop':
       blockType = 'LOOP';
-      branches = block.getFieldValue('BreachCount');
       break;
     default:
       blockType = 'BUTTON';
-      branches = 1;
       break;
   }
 
-  if (branches == null) {
-      branches == 0;
+  // Branches
+  switch (type) {
+    case 'Block':
+      branches = branchCount;
+      break;
+    case 'Conditional':
+      branches = branchCount;
+      break;
+    case 'Loop':
+      branches = branchCount;
+      break;
+    default:
+      branches = -1;
+      break;
   }
   const code = `
 blocks.push({
