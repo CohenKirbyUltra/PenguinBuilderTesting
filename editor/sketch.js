@@ -1,11 +1,13 @@
 const version = "4.0";
 
 const whats_new = `
-This is a fanmade upgrade of penguinbuilder. This isn't mine.
+This is a fanmade upgrade of PenguinBuilder. This isn't mine.
+I'll link the original in the top left
 
-Did my own organization
-there's now conditional and loop block types
-you can now control the branch count of a block
+* Did some reorganization
+* New Conditional and Loop block types
+* You can now control the branch count of a block
+* Visible code
 `;
 
 $("html").on("keydown", (e) => {
