@@ -1,14 +1,29 @@
 const version = "4.1";
 
+const changes = [
+    '* Did some reorganization',
+    '* New Conditional and Loop block types',
+    '* You can now control the branch count of a block',
+    '* Visualize Code'
+];
+
+// My attempt at automating the changelog order
+function getChanges() {
+    let changelog = ""
+    for (const change in changes) {
+        changelog += ${changes[change] + "
+            "};
+    }
+
+    return changelog;
+}
+
 const whats_new = `
 This is a fanmade upgrade of PenguinBuilder. This isn't mine.
 I'll link the original in the top left
 
-* Did some reorganization
-* New Conditional and Loop block types
-* You can now control the branch count of a block
-* Visualize Code
-`;
+
+` + getChanges();
 
 $("html").on("keydown", (e) => {
     if(e.ctrlKey && e.key == "s") {
