@@ -362,6 +362,10 @@ let if_block;
     last.contents.splice(-4, 1);
 })();
 
+function getCode() {
+    return Blockly.JavaScript.workspaceToCode(workspace);
+}
+
 addFromPrefix("logic_", "logic", "#002CB9", []);
 toolbox.contents.at(-1).contents.push(if_block);
 
@@ -578,10 +582,6 @@ $("#Play").click(() => {
         workspace.getAllVariables().forEach(v => v.name = v.name.replace(new RegExp("^" + Extension_id + "_", "g"), ""));
     }
 });
-
-function getCode() {
-    return Blockly.JavaScript.workspaceToCode(workspace);
-}
 
 function download(content, filename, contentType = "text/plain") {
     const blob = new Blob([content], { type: contentType });
