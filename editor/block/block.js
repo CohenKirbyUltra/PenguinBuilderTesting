@@ -44,7 +44,7 @@ Blockly.Blocks['create_block'] = {
 javascript.javascriptGenerator.forBlock['create_block'] = function(block) {
   const id = `${Extension_id}_Block_${block.getFieldValue('ID')}`;
   const text = block.getFieldValue('Text');
-  const branchCount = block.getValue('BreachCount');
+  const branchCount = block.getFieldValue('BreachCount');
   const show = block.getFieldValue('Show') == 'TRUE';
   const type = block.getFieldValue('type');
   const inputs = Blockly.JavaScript.statementToCode(block, 'Inputs');
