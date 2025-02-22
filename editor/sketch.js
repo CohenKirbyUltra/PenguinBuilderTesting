@@ -11,10 +11,8 @@ const changes = [
 function getChanges() {
     let changelog = ""
     for (const change in changes) {
-        changelog += ${changes[change] + "
-            "};
+        changelog += changes[change] + "\n";
     }
-
     return changelog;
 }
 
