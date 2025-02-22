@@ -1,10 +1,14 @@
 const version = "4.1";
 
-const changes = [
-    '* Did some reorganization',
-    '* New Conditional and Loop block types',
-    '* You can now control the branch count of a block',
-    '* Visualize Code'
+var changes = [
+    'Did some reorganization, 
+    ',
+    'New Conditional and Loop block types,
+    ',
+    '* You can now control the branch count of a block
+    ',
+    '* Visualize Code
+    '
 ];
 
 // My attempt at automating the changelog order
@@ -16,8 +20,8 @@ function getChanges() {
     return changelog;
 }
 
-const whats_new = `This is a fanmade upgrade of PenguinBuilderXL. This isn't mine.
-I'll link the original in the top left`;
+var whats_new = `This is a fanmade upgrade of PenguinBuilderXL. This isn't mine.
+I'll link the original in the top left` + getChanges();
 
 $("html").on("keydown", (e) => {
     if(e.ctrlKey && e.key == "s") {
@@ -64,22 +68,9 @@ class Templates extends JSQuery.Plugin {
                         temp.props({ [k]: v });
                     }
                     temp.class(this.id()).html(this.html());
-                    
-                    const Main = $.create("div");
-                    Main.text(whats_new);
-                    temp.append(Main);
-
-                    const BR = $.create("br");
-                    temp.append(Main);                    
-
-                    // Add additional divs based on a list
-                    changes.forEach(item => {
-                        const newDiv = $.create("div");
-                        newDiv.text(item);  // Add the item text to the new div
-                        temp.append(newDiv);  // Append the new div to the temp div
-                    });
 
                     return temp;
+
                 } else {
                     throw new Error("element isn't a template");
                 }
@@ -205,6 +196,8 @@ const toolbox = {
                 block("create_hat"),
                 block("call_hat"),
                 block("call_hat_with_args"),
+                block("stack_timer_finished"),
+                block("start_branch"),
             ],
         },
         {
