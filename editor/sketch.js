@@ -1,4 +1,4 @@
-const version = "4.0";
+const version = "4.1";
 
 const whats_new = `
 This is a fanmade upgrade of PenguinBuilder. This isn't mine.
@@ -7,7 +7,7 @@ I'll link the original in the top left
 * Did some reorganization
 * New Conditional and Loop block types
 * You can now control the branch count of a block
-* Visible code
+* Visualize Code
 `;
 
 $("html").on("keydown", (e) => {
@@ -71,6 +71,7 @@ $("#version").text("v" + version);
 
 let Extension_id = "ExtensionID";
 let name = "ExtensionName";
+let documentation = "https://cohenkirbyultra.github.io/PenguinBuilderTesting/Documentation/";
 let color1 = "#00ff00";
 let forceUnsandboxed = false;
 
@@ -103,6 +104,11 @@ function getID() {
     name = $("#ExtensionName").value();
     if (name === "") {
         name = "ExtensionName";
+    }
+
+    documentation = $("#Documentation").value();
+    if (documentation === "") {
+        documentation = "Doc (Optional)"
     }
 
     color1 = $("#Color").value();
@@ -477,6 +483,7 @@ $("#Export").click(() => {
                         return {
                             "id": "${Extension_id}",
                             "name": "${name}",
+                            "docsURI": "${documentation}",
                             "color1": "${color1}",
                             "blocks": blocks,
                             "menus": menus,
@@ -528,6 +535,7 @@ $("#Play").click(() => {
                         return {
                             "id": "${Extension_id}",
                             "name": "${name}",
+                            "docsURI": "${documentation}",
                             "color1": "${color1}",
                             "blocks": blocks,
                             "menus": menus,
@@ -563,6 +571,15 @@ function download(content, filename, contentType = "text/plain") {
     a.click();
     window.URL.revokeObjectURL(url);
     document.body.removeChild(a);
+}
+
+function viewCode(content, filename, contentType = "text/plain") {
+    const blob = new Blob([content], { type: contentType });
+
+    const a = document.createElement("a");
+    const url = window.URL.createObjectURL(blob);
+    window.open(url);
+    setTimeout(window.URL.revokeObjectURL(url), 10000);
 }
 
 function downloadTest(content, filename, contentType = "text/plain") {
@@ -681,6 +698,51 @@ if (JSON.parse(localStorage.getItem("PenguinBuilder")).shown_version !== version
         dark: JSON.parse(localStorage.getItem("PenguinBuilder")).dark,
     }))
 }
+
+$("#Code").click(() => {
+    getID();
+    workspace.getAllVariables().forEach(v => v.name = Extension_id + "_" + v.name);
+    viewCode(
+        `
+        // Made with PenguinBuilder ${version}
+        // use PenguinBuilder at "https://chickencuber.github.io/PenguinBuilder/"
+        (async function(Scratch) {
+            const blocks = [];
+            const vars = {};
+            const menus = {};
+
+            function wait(m) {
+                return new Promise((r) => setTimeout(() => r(), m));
+            }
+
+            ${forceUnsandboxed ? `if (!Scratch.extensions.unsandboxed) {
+                throw new Error('${name} must run unsandboxed');
+            }`: ""}
+
+            class Extension {
+                getInfo() {
+                    return {
+                        "id": "${Extension_id}",
+                        "name": "${name}",
+                        "docsURI": "${documentation}",
+                        "color1": "${color1}",
+                        "blocks": blocks,
+                        "menus": menus,
+                    }
+                }
+            }
+            \n` +
+                getCode() +
+                `\n
+            ${end}
+            ${very_end}
+            Scratch.extensions.register(new Extension());
+        })(Scratch);
+        `,
+        Extension_id + ".js"
+    );
+    workspace.getAllVariables().forEach(v => v.name = v.name.replace(new RegExp("^" + Extension_id + "_", "g"), ""));
+});
 
 if(JSON.parse(localStorage.getItem("PenguinBuilder")).dark) {
     $("#darkmode").click();
