@@ -561,8 +561,8 @@ $("#Export").click(() => {
     ) {
         workspace.getAllVariables().forEach(v => v.name = Extension_id + "_" + v.name);
         download(
-            getCurrentCode(documentation)
-            Extension_id + ".js"
+            getCurrentCode(documentation),
+            Extension_id + ".js";
         );
         workspace.getAllVariables().forEach(v => v.name = v.name.replace(new RegExp("^" + Extension_id + "_", "g"), ""));
     }
@@ -578,7 +578,7 @@ $("#Play").click(() => {
     ) {
         workspace.getAllVariables().forEach(v => v.name = Extension_id + "_" + v.name);
         downloadTest(
-            getCurrentCode(documentation)
+            getCurrentCode(documentation),
             Extension_id + ".js"
         );
         workspace.getAllVariables().forEach(v => v.name = v.name.replace(new RegExp("^" + Extension_id + "_", "g"), ""));
@@ -647,6 +647,7 @@ function loadProject(file) {
             }
             $("#ExtensionID").elt.value = blocks.Extension_id === "ExtensionID" ? "" : blocks.Extension_id;
             $("#ExtensionName").elt.value = blocks.name === "ExtensionName" ? "" : blocks.name;
+            $("#Documentation").elt.value = blocks.documentation === "Documentation (Optional)" ? "" : blocks.documentation;
             $("#Color").value(blocks.color1);
 
             $("#force-unsandboxed").elt.checked = blocks.forceUnsandboxed;
