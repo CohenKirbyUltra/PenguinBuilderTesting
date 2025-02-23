@@ -479,85 +479,88 @@ $("#Export").click(() => {
         Object.keys(Blockly.serialization.workspaces.save(workspace)).length !== 0
     ) {
         workspace.getAllVariables().forEach(v => v.name = Extension_id + "_" + v.name);
-    if (documentation === "") {
-        download( `
-            // Made with PenguinBuilderXL ${version}
-            // use PenguinBuilderXL at "https://chickencuber.github.io/PenguinBuilderXL/"
-            (async function(Scratch) {
-                const blocks = [];
-                const vars = {};
-                const menus = {};
+        if (documentation == "") {
+            download(
+                `
+                // Made with PenguinBuilderXL ${version}
+                // use PenguinBuilderXL at "https://cohenkirbyultra.github.io/PenguinBuilderXL/"
+                (async function(Scratch) {
+                    const blocks = [];
+                    const vars = {};
+                    const menus = {};
 
-                function wait(m) {
-                    return new Promise((r) => setTimeout(() => r(), m));
-                }
+                    function wait(m) {
+                        return new Promise((r) => setTimeout(() => r(), m));
+                    }
 
-                ${forceUnsandboxed ? `if (!Scratch.extensions.unsandboxed) {
-                    throw new Error('${name} must run unsandboxed');
-                }`: ""}
+                    ${forceUnsandboxed ? `if (!Scratch.extensions.unsandboxed) {
+                        throw new Error('${name} must run unsandboxed');
+                    }`: ""}
 
-                class Extension {
-                    getInfo() {
-                        return {
-                            "id": "${Extension_id}",
-                            "name": "${name}",
-                            "color1": "${color1}",
-                            "blocks": blocks,
-                            "menus": menus,
+                    class Extension {
+                        getInfo() {
+                            return {
+                                "id": "${Extension_id}",
+                                "name": "${name}",
+                                "color1": "${color1}",
+                                "blocks": blocks,
+                                "menus": menus,
+                            }
                         }
                     }
-                }
-                \n` +
-                    getCode() +
-                    `\n
-                ${end}
-                ${very_end}
-                Scratch.extensions.register(new Extension());
-            })(Scratch);
-            `,
-            Extension_id + ".js"
-        );
-    } else {
-        download( `
-            // Made with PenguinBuilderXL ${version}
-            // use PenguinBuilderXL at "https://chickencuber.github.io/PenguinBuilderXL/"
-            (async function(Scratch) {
-                const blocks = [];
-                const vars = {};
-                const menus = {};
+                    \n` +
+                        getCode() +
+                        `\n
+                    ${end}
+                    ${very_end}
+                    Scratch.extensions.register(new Extension());
+                })(Scratch);
+                `,
+                Extension_id + ".js"
+            );
+            workspace.getAllVariables().forEach(v => v.name = v.name.replace(new RegExp("^" + Extension_id + "_", "g"), ""));
+        } else {
+            download(
+                `
+                // Made with PenguinBuilderXL ${version}
+                // use PenguinBuilderXL at "https://cohenkirbyultra.github.io/PenguinBuilderXL/"
+                (async function(Scratch) {
+                    const blocks = [];
+                    const vars = {};
+                    const menus = {};
 
-                function wait(m) {
-                    return new Promise((r) => setTimeout(() => r(), m));
-                }
+                    function wait(m) {
+                        return new Promise((r) => setTimeout(() => r(), m));
+                    }
 
-                ${forceUnsandboxed ? `if (!Scratch.extensions.unsandboxed) {
-                    throw new Error('${name} must run unsandboxed');
-                }`: ""}
+                    ${forceUnsandboxed ? `if (!Scratch.extensions.unsandboxed) {
+                        throw new Error('${name} must run unsandboxed');
+                    }`: ""}
 
-                class Extension {
-                    getInfo() {
-                        return {
-                            "id": "${Extension_id}",
-                            "name": "${name}",
-                            "docsURI": "${documentation}",
-                            "color1": "${color1}",
-                            "blocks": blocks,
-                            "menus": menus,
+                    class Extension {
+                        getInfo() {
+                            return {
+                                "id": "${Extension_id}",
+                                "name": "${name}",
+                                "docsURI": "${documentation}",
+                                "color1": "${color1}",
+                                "blocks": blocks,
+                                "menus": menus,
+                            }
                         }
                     }
-                }
-                \n` +
-                    getCode() +
-                    `\n
-                ${end}
-                ${very_end}
-                Scratch.extensions.register(new Extension());
-            })(Scratch);
-            `,
-            Extension_id + ".js"
-        );
-    }
-        workspace.getAllVariables().forEach(v => v.name = v.name.replace(new RegExp("^" + Extension_id + "_", "g"), ""));
+                    \n` +
+                        getCode() +
+                        `\n
+                    ${end}
+                    ${very_end}
+                    Scratch.extensions.register(new Extension());
+                })(Scratch);
+                `,
+                Extension_id + ".js"
+            );
+            workspace.getAllVariables().forEach(v => v.name = v.name.replace(new RegExp("^" + Extension_id + "_", "g"), ""));
+        }
     }
 });
 
@@ -570,85 +573,88 @@ $("#Play").click(() => {
         Object.keys(Blockly.serialization.workspaces.save(workspace)).length !== 0
     ) {
         workspace.getAllVariables().forEach(v => v.name = Extension_id + "_" + v.name);
-    if (documentation === "") {
-        downloadTest( `
-            // Made with PenguinBuilderXL ${version}
-            // use PenguinBuilderXL at "https://chickencuber.github.io/PenguinBuilderXL/"
-            (async function(Scratch) {
-                const blocks = [];
-                const vars = {};
-                const menus = {};
+        if (documentation == "") {
+            downloadTest(
+                `
+                // Made with PenguinBuilderXL ${version}
+                // use PenguinBuilderXL at "https://cohenkirbyultra.github.io/PenguinBuilderXL/"
+                (async function(Scratch) {
+                    const blocks = [];
+                    const vars = {};
+                    const menus = {};
 
-                function wait(m) {
-                    return new Promise((r) => setTimeout(() => r(), m));
-                }
+                    function wait(m) {
+                        return new Promise((r) => setTimeout(() => r(), m));
+                    }
 
-                ${forceUnsandboxed ? `if (!Scratch.extensions.unsandboxed) {
-                    throw new Error('${name} must run unsandboxed');
-                }`: ""}
+                    ${forceUnsandboxed ? `if (!Scratch.extensions.unsandboxed) {
+                        throw new Error('${name} must run unsandboxed');
+                    }`: ""}
 
-                class Extension {
-                    getInfo() {
-                        return {
-                            "id": "${Extension_id}",
-                            "name": "${name}",
-                            "color1": "${color1}",
-                            "blocks": blocks,
-                            "menus": menus,
+                    class Extension {
+                        getInfo() {
+                            return {
+                                "id": "${Extension_id}",
+                                "name": "${name}",
+                                "color1": "${color1}",
+                                "blocks": blocks,
+                                "menus": menus,
+                            }
                         }
                     }
-                }
-                \n` +
-                    getCode() +
-                    `\n
-                ${end}
-                ${very_end}
-                Scratch.extensions.register(new Extension());
-            })(Scratch);
-            `,
-            Extension_id + ".js"
-        );
-    } else {
-        downloadTest( `
-            // Made with PenguinBuilderXL ${version}
-            // use PenguinBuilderXL at "https://chickencuber.github.io/PenguinBuilderXL/"
-            (async function(Scratch) {
-                const blocks = [];
-                const vars = {};
-                const menus = {};
+                    \n` +
+                        getCode() +
+                        `\n
+                    ${end}
+                    ${very_end}
+                    Scratch.extensions.register(new Extension());
+                })(Scratch);
+                `,
+                Extension_id + ".js"
+            );
+            workspace.getAllVariables().forEach(v => v.name = v.name.replace(new RegExp("^" + Extension_id + "_", "g"), ""));
+        } else {
+            downloadTest(
+                `
+                // Made with PenguinBuilderXL ${version}
+                // use PenguinBuilderXL at "https://cohenkirbyultra.github.io/PenguinBuilderXL/"
+                (async function(Scratch) {
+                    const blocks = [];
+                    const vars = {};
+                    const menus = {};
 
-                function wait(m) {
-                    return new Promise((r) => setTimeout(() => r(), m));
-                }
+                    function wait(m) {
+                        return new Promise((r) => setTimeout(() => r(), m));
+                    }
 
-                ${forceUnsandboxed ? `if (!Scratch.extensions.unsandboxed) {
-                    throw new Error('${name} must run unsandboxed');
-                }`: ""}
+                    ${forceUnsandboxed ? `if (!Scratch.extensions.unsandboxed) {
+                        throw new Error('${name} must run unsandboxed');
+                    }`: ""}
 
-                class Extension {
-                    getInfo() {
-                        return {
-                            "id": "${Extension_id}",
-                            "name": "${name}",
-                            "docsURI": "${documentation}",
-                            "color1": "${color1}",
-                            "blocks": blocks,
-                            "menus": menus,
+                    class Extension {
+                        getInfo() {
+                            return {
+                                "id": "${Extension_id}",
+                                "name": "${name}",
+                                "docsURI": "${documentation}",
+                                "color1": "${color1}",
+                                "blocks": blocks,
+                                "menus": menus,
+                            }
                         }
                     }
-                }
-                \n` +
-                    getCode() +
-                    `\n
-                ${end}
-                ${very_end}
-                Scratch.extensions.register(new Extension());
-            })(Scratch);
-            `,
-            Extension_id + ".js"
-        );
-    }
-        workspace.getAllVariables().forEach(v => v.name = v.name.replace(new RegExp("^" + Extension_id + "_", "g"), ""));
+                    \n` +
+                        getCode() +
+                        `\n
+                    ${end}
+                    ${very_end}
+                    Scratch.extensions.register(new Extension());
+                })(Scratch);
+                `,
+                Extension_id + ".js"
+            );
+            workspace.getAllVariables().forEach(v => v.name = v.name.replace(new RegExp("^" + Extension_id + "_", "g"), ""));
+        }
     }
 });
 
@@ -801,85 +807,88 @@ $("#Code").click(() => {
         Object.keys(Blockly.serialization.workspaces.save(workspace)).length !== 0
     ) {
         workspace.getAllVariables().forEach(v => v.name = Extension_id + "_" + v.name);
-    if (documentation === "") {
-        viewCode( `
-            // Made with PenguinBuilderXL ${version}
-            // use PenguinBuilderXL at "https://chickencuber.github.io/PenguinBuilderXL/"
-            (async function(Scratch) {
-                const blocks = [];
-                const vars = {};
-                const menus = {};
+        if (documentation == "") {
+            viewCode(
+                `
+                // Made with PenguinBuilderXL ${version}
+                // use PenguinBuilderXL at "https://cohenkirbyultra.github.io/PenguinBuilderXL/"
+                (async function(Scratch) {
+                    const blocks = [];
+                    const vars = {};
+                    const menus = {};
 
-                function wait(m) {
-                    return new Promise((r) => setTimeout(() => r(), m));
-                }
+                    function wait(m) {
+                        return new Promise((r) => setTimeout(() => r(), m));
+                    }
 
-                ${forceUnsandboxed ? `if (!Scratch.extensions.unsandboxed) {
-                    throw new Error('${name} must run unsandboxed');
-                }`: ""}
+                    ${forceUnsandboxed ? `if (!Scratch.extensions.unsandboxed) {
+                        throw new Error('${name} must run unsandboxed');
+                    }`: ""}
 
-                class Extension {
-                    getInfo() {
-                        return {
-                            "id": "${Extension_id}",
-                            "name": "${name}",
-                            "color1": "${color1}",
-                            "blocks": blocks,
-                            "menus": menus,
+                    class Extension {
+                        getInfo() {
+                            return {
+                                "id": "${Extension_id}",
+                                "name": "${name}",
+                                "color1": "${color1}",
+                                "blocks": blocks,
+                                "menus": menus,
+                            }
                         }
                     }
-                }
-                \n` +
-                    getCode() +
-                    `\n
-                ${end}
-                ${very_end}
-                Scratch.extensions.register(new Extension());
-            })(Scratch);
-            `,
-            Extension_id + ".js"
-        );
-    } else {
-        viewCode( `
-            // Made with PenguinBuilderXL ${version}
-            // use PenguinBuilderXL at "https://chickencuber.github.io/PenguinBuilderXL/"
-            (async function(Scratch) {
-                const blocks = [];
-                const vars = {};
-                const menus = {};
+                    \n` +
+                        getCode() +
+                        `\n
+                    ${end}
+                    ${very_end}
+                    Scratch.extensions.register(new Extension());
+                })(Scratch);
+                `,
+                Extension_id + ".js"
+            );
+            workspace.getAllVariables().forEach(v => v.name = v.name.replace(new RegExp("^" + Extension_id + "_", "g"), ""));
+        } else {
+            viewCode(
+                `
+                // Made with PenguinBuilderXL ${version}
+                // use PenguinBuilderXL at "https://cohenkirbyultra.github.io/PenguinBuilderXL/"
+                (async function(Scratch) {
+                    const blocks = [];
+                    const vars = {};
+                    const menus = {};
 
-                function wait(m) {
-                    return new Promise((r) => setTimeout(() => r(), m));
-                }
+                    function wait(m) {
+                        return new Promise((r) => setTimeout(() => r(), m));
+                    }
 
-                ${forceUnsandboxed ? `if (!Scratch.extensions.unsandboxed) {
-                    throw new Error('${name} must run unsandboxed');
-                }`: ""}
+                    ${forceUnsandboxed ? `if (!Scratch.extensions.unsandboxed) {
+                        throw new Error('${name} must run unsandboxed');
+                    }`: ""}
 
-                class Extension {
-                    getInfo() {
-                        return {
-                            "id": "${Extension_id}",
-                            "name": "${name}",
-                            "docsURI": "${documentation}",
-                            "color1": "${color1}",
-                            "blocks": blocks,
-                            "menus": menus,
+                    class Extension {
+                        getInfo() {
+                            return {
+                                "id": "${Extension_id}",
+                                "name": "${name}",
+                                "docsURI": "${documentation}",
+                                "color1": "${color1}",
+                                "blocks": blocks,
+                                "menus": menus,
+                            }
                         }
                     }
-                }
-                \n` +
-                    getCode() +
-                    `\n
-                ${end}
-                ${very_end}
-                Scratch.extensions.register(new Extension());
-            })(Scratch);
-            `,
-            Extension_id + ".js"
-        );
-    }
-        workspace.getAllVariables().forEach(v => v.name = v.name.replace(new RegExp("^" + Extension_id + "_", "g"), ""));
+                    \n` +
+                        getCode() +
+                        `\n
+                    ${end}
+                    ${very_end}
+                    Scratch.extensions.register(new Extension());
+                })(Scratch);
+                `,
+                Extension_id + ".js"
+            );
+            workspace.getAllVariables().forEach(v => v.name = v.name.replace(new RegExp("^" + Extension_id + "_", "g"), ""));
+        }
     }
 });
 
