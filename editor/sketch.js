@@ -676,10 +676,7 @@ function viewCode(content, filename, contentType = "text/plain") {
 
     const a = document.createElement("a");
     const url = window.URL.createObjectURL(blob);
-        window.open(
-            "https://studio.penguinmod.com/editor?extension=" +
-            encodeURIComponent("data:text/plain;base64," + content, '_blank')
-        ).focus();
+    window.open(url).focus();
     setTimeout(window.URL.revokeObjectURL(url), 10000);
 }
 
@@ -688,7 +685,11 @@ function downloadTest(content, filename, contentType = "text/plain") {
 
     const a = document.createElement("a");
     const url = window.URL.createObjectURL(blob);
-    window.open("https://studio.penguinmod.com/editor.html?extension=" + url);
+    // method from extforge
+    window.open(
+        "https://studio.penguinmod.com/editor?extension=" +
+        encodeURIComponent("data:text/plain;base64," + content, '_blank')
+    ).focus();
     setTimeout(window.URL.revokeObjectURL(url), 30000);
 }
 
