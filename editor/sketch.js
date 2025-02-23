@@ -678,7 +678,7 @@ function viewCode(content, filename, contentType = "text/plain") {
     const url = window.URL.createObjectURL(blob);
         window.open(
             "https://studio.penguinmod.com/editor?extension=" +
-            encodeURIComponent("data:text/plain;base64," + content, '_blank'
+            encodeURIComponent("data:text/plain;base64," + content, '_blank')
         ).focus();
     setTimeout(window.URL.revokeObjectURL(url), 10000);
 }
